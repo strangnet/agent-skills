@@ -1,0 +1,22 @@
+{
+  "name": "strangnet-skills",
+  "interface": {
+    "displayName": "Agent Skills"
+  },
+  "plugins": [
+    {
+      "name": "strangnet-skills",
+      "version": "0.1.0",
+      "description": "Skills for AI coding agents.",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
