@@ -17,3 +17,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check vendored language references match references/languages/
         run: scripts/sync-references.sh --check
+
+  versions-in-sync:
+    name: Manifest versions in sync
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every plugin manifest declares the same version
+        run: scripts/validate-versions.sh

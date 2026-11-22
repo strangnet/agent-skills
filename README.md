@@ -34,6 +34,7 @@ Each skill detects the project's language from its manifest (`Cargo.toml`, `go.m
 skills/<category>/<skill>/     SKILL.md plus the skill's own references/
 references/<set>/              shared reference sets, vendored into skills (see below)
 scripts/sync-references.sh     copies shared sets into skills; --check detects drift
+scripts/validate-versions.sh   checks that every plugin manifest has the same version
 evals/plugin/                  behavioural evals, run with `claude plugin eval`
 ```
 
@@ -44,6 +45,14 @@ evals/plugin/                  behavioural evals, run with `claude plugin eval`
 3. To use a shared reference set such as the language files, create an empty `references/languages/` folder in the skill and run `scripts/sync-references.sh`. Edit shared files only under the root `references/`; CI fails if a skill's copy drifts.
 4. Add eval cases under `evals/plugin/` (see its [README](evals/plugin/README.md)).
 5. Check that it loads: `claude plugin validate .` should list the new skill.
+
+## Releasing
+
+Claude Code and Codex use the plugin version to decide whether an installed copy needs updating. If a change ships without a version bump, users may not receive it.
+
+1. Pick the new version using semver: patch for fixes and wording changes, minor for new skills or behaviour, major for removed or renamed skills.
+2. Set it in all three manifests: `.claude-plugin/plugin.json` (the source of truth), `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. CI fails if they differ; run `scripts/validate-versions.sh` to check locally.
+3. Commit as `chore(release): bump plugin manifests to X.Y.Z`, merge it, then tag that commit and publish a GitHub release whose notes list the changes: `gh release create X.Y.Z --target main --generate-notes`.
 
 ## Credits
 
