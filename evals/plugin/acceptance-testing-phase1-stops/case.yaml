@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: acceptance-testing-phase1-stops
+context:
+  scaffold_script: scaffold.sh
