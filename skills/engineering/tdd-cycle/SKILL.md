@@ -24,7 +24,12 @@ Stages 1–2 are ordinary collaboration. Strict cycle rules apply from stage 3 o
 
 1. **Context.** Read the spec, the relevant code and any existing tests. Done when you can state the behaviour to build in one sentence and the user agrees with it.
 2. **Roadmap** (optional, when the user wants a plan). Read [references/roadmap.md](references/roadmap.md), classify the work type and draft the roadmap. Done when the user approves the ordered scenario list. Production code waits until stage 4.
-3. **Test list.** Detect the language (see [Language](#language)) and read its reference file. Ask whether the user wants a full **test list** (every scenario written as a pending test) or a **single test** at a time, unless they already said. Order scenarios with [references/test-ordering.md](references/test-ordering.md). Write only test names and pending markers here. Then enter red.
+3. **Test list.**
+   1. **Load the language reference first.** Detect the language from the manifest (see [Language](#language)) and open its reference file before writing or planning any test. Take the test runner command, pending-test marker and test layout from that file, not from memory.
+   2. Ask whether the user wants a full **test list** (every scenario written as a pending test) or a **single test** at a time, unless they already said.
+   3. Order scenarios with [references/test-ordering.md](references/test-ordering.md). Write only test names and pending markers here.
+
+   Done when the language reference file has been read in this session and the pending tests use its marker and layout. Then enter red.
 4. **Cycle.** Read [references/phases.md](references/phases.md) before the first phase. Run red → green → refactor for one test at a time, a gate after each phase. Done when every scenario on the list is green and has been through refactor.
 
 ## The three laws
