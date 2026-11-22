@@ -51,7 +51,7 @@ evals/plugin/                  behavioural evals, run with `claude plugin eval`
 Claude Code and Codex use the plugin version to decide whether an installed copy needs updating. If a change ships without a version bump, users may not receive it.
 
 1. Pick the new version using semver: patch for fixes and wording changes, minor for new skills or behaviour, major for removed or renamed skills.
-2. Set it in all three manifests: `.claude-plugin/plugin.json` (the source of truth), `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. CI fails if they differ; run `scripts/validate-versions.sh` to check locally.
+2. Set it in all four manifests: `.claude-plugin/plugin.json` (the source of truth), the root `plugin.json`, `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. CI fails if they differ; run `scripts/validate-versions.sh` to check locally.
 3. Commit as `chore(release): bump plugin manifests to X.Y.Z`, merge it, then tag that commit and publish a GitHub release whose notes list the changes: `gh release create X.Y.Z --target main --generate-notes`.
 
 ## Credits

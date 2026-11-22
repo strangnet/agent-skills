@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Checks that every plugin manifest declares the same version.
 #
-# .claude-plugin/plugin.json is the source of truth. The marketplace entries
-# for Claude Code and Codex must match it, because clients compare versions to
+# .claude-plugin/plugin.json is the source of truth. The root plugin.json
+# (vendor-neutral agent-plugins.org manifest) and the marketplace entries for
+# Claude Code and Codex must match it, because clients compare versions to
 # decide whether an installed copy needs updating.
 #
 #   scripts/validate-versions.sh   exit 1 if any manifest's version differs (for CI)
@@ -10,6 +11,9 @@ set -euo pipefail
 
 root=$(cd "$(dirname "$0")/.." && pwd)
 source_manifest=.claude-plugin/plugin.json
+plugin_manifests=(
+  plugin.json
+)
 marketplaces=(
   .claude-plugin/marketplace.json
   .agents/plugins/marketplace.json
@@ -27,6 +31,13 @@ fi
 
 name=$(jq -r '.name' "$root/$source_manifest")
 status=0
+for manifest in "${plugin_manifests[@]}"; do
+  version=$(jq -r '.version // "<missing>"' "$root/$manifest")
+  if [ "$version" != "$expected" ]; then
+    echo "$manifest has version $version; expected $expected (from $source_manifest)"
+    status=1
+  fi
+done
 for manifest in "${marketplaces[@]}"; do
   version=$(jq -r --arg name "$name" \
     '.plugins[] | select(.name == $name) | .version // "<missing>"' \
