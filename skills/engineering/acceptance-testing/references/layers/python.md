@@ -28,7 +28,7 @@ acceptance/
   test_checkout_feature.py     scenario with Gherkin (pytest-bdd)
 ```
 
-`pytest` and `httpx`, plus `pytest-bdd` if Gherkin is used. `pytest-bdd` keeps everything in one runner and reuses pytest fixtures. If the project already uses `behave`, its steps call the same DSL.
+`pytest` and `httpx`, plus `pytest-bdd` if Gherkin is used. `pytest-bdd` keeps everything in one runner and reuses pytest fixtures. Use `pytest-bdd` for Gherkin, not `behave`. If the project has an existing `behave` suite, propose moving it to `pytest-bdd`: the `.feature` files stay as they are and only the step definitions change.
 
 **Failure convention:** the driver raises `AssertionError` with a descriptive message, and pytest reports it as a test failure.
 
