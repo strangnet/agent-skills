@@ -24,6 +24,8 @@ claude plugin eval . --scaffold --allow-tools Bash Write Edit --no-publish
 | `tdd-cycle-language-{rust,python,typescript}` | Detects the language from the manifest and reads only that reference file. |
 | `tdd-cycle-not-triggered` | A conceptual TDD question fires neither skill. |
 | `test-review-go-weak-tests` | Finds five planted test problems with `file:line` evidence, and writes nothing. |
+| `acceptance-testing-asks-before-infrastructure` | With no DSL or driver in place, proposes a strategy or asks before creating infrastructure, and writes nothing. |
+| `acceptance-testing-phase1-stops` | Phase 1 writes only the scenario test with business-language DSL calls, leaves the DSL and driver alone, and stops before phase 2. |
 
 ## Sandbox notes
 
