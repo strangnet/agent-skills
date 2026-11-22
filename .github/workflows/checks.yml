@@ -1,0 +1,18 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  references-in-sync:
+    name: Shared references in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check vendored language references match references/languages/
+        run: scripts/sync-references.sh --check
