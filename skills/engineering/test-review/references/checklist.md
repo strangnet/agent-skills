@@ -1,6 +1,6 @@
 # Test quality checklist
 
-Every criterion has an ID for the report table. Apply A–E to unit tests. Apply F only to integration and contract tests. When a criterion does not fit, mark it n/a with a reason.
+Every criterion has an ID for the report table. Apply A–E to unit tests. Apply F only to integration and contract tests. Apply G only to acceptance tests (scenario → DSL → protocol driver), together with C1, C2, D1 and E2. When a criterion does not fit, mark it n/a with a reason.
 
 ## A. Scope and isolation
 
@@ -42,3 +42,12 @@ Every criterion has an ID for the report table. Apply A–E to unit tests. Apply
 - **F1 Real managed dependencies.** Integration tests for dependencies the system owns (database, cache, queue) run against a real instance and isolate their data per test.
 - **F2 Contract pinned.** Contract tests for third-party APIs use a stub server or recorded responses that assert on the request shape the code sends. The stubbed responses match the provider's documented schema.
 - **F3 Bounded waiting.** Async conditions are awaited by polling with a timeout, never a fixed sleep.
+
+## G. Acceptance tests
+
+- **G1 Business-language scenarios.** Scenario tests and step definitions contain only DSL calls, one per step, named in the scenario's words. No URLs, selectors, protocol calls or assertions.
+- **G2 Pure DSL.** DSL methods do only parameter handling, aliasing, bridging state and delegation to the driver interface. Flag any assertion, business rule or protocol detail.
+- **G3 Driver owns verification.** Pass/fail is decided in the protocol driver by querying the system under test. Failures name actual and expected values. Drivers do not return booleans for callers to check.
+- **G4 Own partition, aliased.** Each test creates its own domain partition as its first step, and aliases every unique or partition-defining identifier. Nothing depends on data from another test or a shared seed.
+- **G5 Real system, external stubs only.** The system's own database, cache and internal services are real. Only third-party services the team does not control are stubbed, at the system's boundary.
+- **G6 Swappable driver.** The DSL depends on the driver interface, and a factory selects the implementation from configuration.
