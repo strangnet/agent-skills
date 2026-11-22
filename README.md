@@ -40,7 +40,7 @@ evals/plugin/                  behavioural evals, run with `claude plugin eval`
 ## Adding a skill
 
 1. Create `skills/<category>/<name>/SKILL.md`. Keep the main file short and move detail into `references/`, which the skill reads only when needed.
-2. Register it in the `skills` array of `.claude-plugin/plugin.json`. Each skill is listed by its own path.
+2. Skills in an existing category folder load automatically. For a new category, add its folder (for example `"./skills/<category>"`) to the `skills` array in `.claude-plugin/plugin.json`.
 3. To use a shared reference set such as the language files, create an empty `references/languages/` folder in the skill and run `scripts/sync-references.sh`. Edit shared files only under the root `references/`; CI fails if a skill's copy drifts.
 4. Add eval cases under `evals/plugin/` (see its [README](evals/plugin/README.md)).
 5. Check that it loads: `claude plugin validate .` should list the new skill.
