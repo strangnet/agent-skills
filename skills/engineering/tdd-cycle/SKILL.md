@@ -1,6 +1,6 @@
 ---
 name: tdd-cycle
-description: Test-driven development as a gated red-green-refactor cycle that stops for developer review after every phase. Use when the user asks to work test-first or says "TDD", "red/green/refactor", "test list", "next test" or "make it pass", or when a cycle is already in progress. Not for planning-only discussions or for changes the user has not asked to drive with tests.
+description: Test-driven development as a gated red-green-refactor cycle that stops for developer review after every phase. Use when the user asks to work test-first or says "TDD", "red/green/refactor", "test list", "next test" or "make it pass", or when a cycle is already in progress. Not for planning-only discussions or for changes the user has not asked to drive with tests. Feature-level tests against the running system belong to acceptance-testing.
 ---
 
 # TDD Cycle
@@ -8,6 +8,15 @@ description: Test-driven development as a gated red-green-refactor cycle that st
 The developer stays the architect; you are the pair who types. Every phase ends at a **gate** where the developer reviews before anything moves on.
 
 > Inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl.
+
+## Unit tests and acceptance tests
+
+The two kinds of test answer different questions:
+
+- **Unit tests** (this skill) ask *is the code technically correct?* They are fast, double every out-of-process dependency, and put design pressure on the code.
+- **Acceptance tests** (the `acceptance-testing` skill) ask *is the feature done and releasable?* They run against the real system through its boundaries.
+
+This skill is the inner loop. When the user wants to confirm a feature works end to end, or to turn scenarios or acceptance criteria into tests, switch to `acceptance-testing`. When the feature already has a failing acceptance test, that test is the outer loop. The cycle ends by re-running it (see [references/phases.md](references/phases.md)).
 
 ## Stages
 

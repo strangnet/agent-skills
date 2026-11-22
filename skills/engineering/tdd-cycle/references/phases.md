@@ -50,4 +50,7 @@ The red, green and refactor phases of [the TDD cycle](../SKILL.md). Each phase e
 
 **Done when:** the suite is green, and you have either applied improvements or stated explicitly that none were needed.
 
-Next comes red for the next test on the list. If the list is empty, the cycle is complete. Summarise what was built and ask whether to add scenarios, or to run the `test-review` skill over the new tests.
+Next comes red for the next test on the list. If the list is empty, the cycle is complete:
+
+1. If the feature has an acceptance test, run it. If it passes, the feature is done. If it still fails, name the behaviour it shows is missing and propose new scenarios for the list.
+2. Summarise what was built and ask whether to add scenarios, or to run the `test-review` skill over the new tests.

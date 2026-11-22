@@ -5,7 +5,7 @@ description: Executable acceptance tests built in three layers (scenario, DSL, p
 
 # Acceptance Testing
 
-Acceptance tests state what the system does in the user's language and check it against the running system. The developer stays the architect; every layer ends at a **gate** for review.
+Acceptance tests ask *is the feature done and releasable?* They are an executable definition of done. They state what the system does in the user's language and check it against the running system. Unit tests, written with `tdd-cycle`, ask the different question *is the code technically correct?* The developer stays the architect; every layer ends at a **gate** for review.
 
 > Inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl, which builds on Dave Farley's four-layer acceptance test model.
 
