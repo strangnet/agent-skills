@@ -1,3 +1,5 @@
+<!-- Source of truth: references/languages/ at the repo root. Edit there, then run scripts/sync-references.sh. -->
+
 # Rust
 
 ## Running tests
@@ -85,4 +87,12 @@ Without the crate, put several focused `#[test]` functions side by side rather t
 
 - `assert_eq!` failure output needs `Debug` on both sides. Derive it on domain types early.
 - Handle money in integer minor units (`u64` cents) or with `rust_decimal`, never `f64`.
-- Refactor phase: run `cargo clippy --all-targets` and `cargo fmt` as part of the evaluation.
+- Lint and format: `cargo clippy --all-targets` and `cargo fmt --check`.
+
+## Review smells
+
+- `std::thread::sleep` or a real `SystemTime::now()` in a unit test.
+- `mockall` expectations on query methods whose return value is all that matters. Use a fake instead.
+- Testing private functions through `use super::*` when the public API could express the behaviour.
+- `#[ignore]` without a reason string, or ignored tests nobody runs.
+- `.unwrap()` hiding which step failed. Use `expect("given: …")` or return `Result<(), Box<dyn Error>>` from the test.

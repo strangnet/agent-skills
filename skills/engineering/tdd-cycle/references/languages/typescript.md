@@ -1,3 +1,5 @@
+<!-- Source of truth: references/languages/ at the repo root. Edit there, then run scripts/sync-references.sh. -->
+
 # TypeScript
 
 ## Running tests
@@ -72,4 +74,12 @@ it.each([
 
 - Indexing a `Record<string, number>` gives `number | undefined` only with `noUncheckedIndexedAccess`. Check `tsconfig.json` before relying on it.
 - Floating-point money: use integer cents.
-- Refactor phase: run the project's linter (`eslint` or `biome`), its formatter and `tsc --noEmit`.
+- Lint and format: the project's linter (`eslint` or `biome`), its formatter in check mode, and `tsc --noEmit`.
+
+## Review smells
+
+- `vi.mock`/`jest.mock` of the project's own modules. Each one marks a seam that is missing.
+- Large snapshot assertions standing in for specific expectations. Nobody reviews a 200-line snapshot diff.
+- `as any` or `as unknown as T` in test setup, which hides type drift between fake and interface.
+- Async tests missing an `await`, so an assertion runs after the test has already passed.
+- Querying the DOM by class name or test id when a role and accessible name exist.

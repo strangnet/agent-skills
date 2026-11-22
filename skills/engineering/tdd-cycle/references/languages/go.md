@@ -1,3 +1,5 @@
+<!-- Source of truth: references/languages/ at the repo root. Edit there, then run scripts/sync-references.sh. -->
+
 # Go
 
 ## Running tests
@@ -5,7 +7,7 @@
 - Run everything with `go test ./...`.
 - Run a single test with `go test ./path/to/pkg -run '^TestEmptyCartTotalsZero$'`.
 - Add `-race` whenever concurrency is involved, and `-count=1` to bypass the test cache.
-- A build error such as "undefined: NewCart" counts as red.
+- A build error such as "undefined: cart.New" counts as red.
 
 ## Pending tests
 
@@ -94,4 +96,12 @@ func TestQuantityMultipliesPrice(t *testing.T) {
 
 - Unordered map iteration makes "many" tests flaky if output order matters. Sort the output or compare as sets.
 - Call `t.Helper()` in assertion helpers so failures point at the caller's line.
-- Refactor phase: run `go vet ./...` and `gofmt`, and `staticcheck` if it is available.
+- Lint and format: `go vet ./...`, `gofmt -l .`, and `staticcheck ./...` if it is available.
+
+## Review smells
+
+- `time.Sleep` in a test, or a real `time.Now()` reached from domain code.
+- Table-driven tests whose cases need `if tt.wantErr { … } else { … }` branches that differ in shape. Split them into separate tests.
+- Package-level variables swapped out for tests (`var now = time.Now`) instead of an injected dependency.
+- `t.Fatal` in a goroutine (it only stops that goroutine). Report back on a channel instead.
+- Assertions that print only `got`, so the failure message cannot be read without opening the test.

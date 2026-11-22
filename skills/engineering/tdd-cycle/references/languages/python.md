@@ -1,3 +1,5 @@
+<!-- Source of truth: references/languages/ at the repo root. Edit there, then run scripts/sync-references.sh. -->
+
 # Python
 
 ## Running tests
@@ -75,4 +77,12 @@ def test_quantity_multiplies_price(qty, price, expected):
 
 - Money: use integer cents or `Decimal`. Compare floats with `pytest.approx`.
 - Mutable default arguments (`prices={}`) leak state between tests. Use `None` plus a fallback, as the fake above does.
-- Refactor phase: run `ruff check`, `ruff format` and the project's type checker.
+- Lint and format: `ruff check`, `ruff format --check` and the project's type checker.
+
+## Review smells
+
+- `mock.patch("module.thing")` stacks. Each one marks a seam that is missing.
+- `MagicMock()` without `spec`/`autospec`, which accepts any call and so hides signature drift.
+- `assert mock.called` with no check on the arguments, or assertions on calls to query methods.
+- Fixtures several `conftest.py` levels away that set up state the test's behaviour depends on.
+- `time.sleep`, `datetime.now()` or unseeded `random` in a unit test.
