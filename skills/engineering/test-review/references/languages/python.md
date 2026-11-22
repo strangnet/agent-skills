@@ -2,6 +2,14 @@
 
 # Python
 
+## Test framework
+
+- Use **pytest** for every test. Do not use `unittest`, `nose`/`nose2` or `doctest` as the framework.
+- Write plain `test_*` functions with bare `assert`, pytest fixtures and `pytest.mark`. Do not subclass `unittest.TestCase` or use `self.assert*`, `setUp` or `tearDown`.
+- If the project has no pytest yet, add it as a dev dependency (`uv add --dev pytest`, `poetry add --group dev pytest`, or the project's equivalent).
+- If the project has existing `unittest.TestCase` suites, run them with pytest, which collects them unchanged. Write new tests in pytest style and leave the existing ones alone unless the developer asks for a migration.
+- `unittest.mock` is a mocking library, not a test framework, so using it with pytest is fine.
+
 ## Running tests
 
 - Use the project's runner: `uv run pytest` if there is a `uv.lock`, `poetry run pytest` with Poetry, otherwise `pytest`.
@@ -81,6 +89,7 @@ def test_quantity_multiplies_price(qty, price, expected):
 
 ## Review smells
 
+- New tests written with `unittest.TestCase`, `self.assert*`, `setUp`/`tearDown`, or another framework instead of pytest.
 - `mock.patch("module.thing")` stacks. Each one marks a seam that is missing.
 - `MagicMock()` without `spec`/`autospec`, which accepts any call and so hides signature drift.
 - `assert mock.called` with no check on the arguments, or assertions on calls to query methods.
