@@ -6,10 +6,6 @@
 # marketplace entries for Claude Code and Codex must match it, because clients
 # compare versions to decide whether an installed copy needs updating.
 #
-# There is deliberately no root plugin.json: an agent-plugins.org manifest
-# there takes precedence in Copilot and Codex and only finds skills in direct
-# subfolders of skills/.
-#
 #   scripts/validate-versions.sh   exit 1 if any manifest's version differs (for CI)
 set -euo pipefail
 

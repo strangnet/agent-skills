@@ -9,7 +9,6 @@
   "repository": "https://github.com/strangnet/agent-skills",
   "license": "MIT",
   "commands": ["./.claude/commands", "./commands"],
-  "skills": ["./skills/engineering", "./skills/session"],
   "experimental": {
     "evals": "evals/plugin"
   }

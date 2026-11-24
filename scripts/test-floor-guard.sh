@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tests for skills/engineering/constraints/scripts/floor-guard.sh.
+# Tests for skills/constraints/scripts/floor-guard.sh.
 # Each case builds a throwaway git repo, makes a change on a branch, and checks
 # the guard's exit code and the rules it reports.
 #
@@ -7,7 +7,7 @@
 set -uo pipefail
 
 root=$(cd "$(dirname "$0")/.." && pwd)
-guard=$root/skills/engineering/constraints/scripts/floor-guard.sh
+guard=$root/skills/constraints/scripts/floor-guard.sh
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
