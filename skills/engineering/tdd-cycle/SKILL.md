@@ -48,6 +48,12 @@ At the end of every phase:
 
 **Unattended mode.** When the user says "auto" or "run unattended", move through the phases without stopping, but still report each phase as above. Return to gated mode as soon as anything surprising happens: a test passing in red, a test failing in green, or a refactor turning the suite red.
 
+## Sources, doubt and the bar
+
+- **Sources.** When green or refactor calls a library, framework or tool API whose details depend on its version, apply the `source-check` skill instead of writing it from memory.
+- **Doubt.** A failing test is the doubt step for behaviour. For a claim no unit test can show (thread safety, idempotence, ordering, a migration that can't be undone), run the `doubt` skill before the gate.
+- **The bar.** When the project has a `CONSTRAINTS.md`, follow it. Never make a phase pass by silencing a checker, skipping a test or loosening a threshold. Pending tests in the test list are the one expected skip.
+
 ## Phase state
 
 Keep track of the current phase, the current test and the remaining list across messages. To decide which phase you are in:

@@ -31,6 +31,7 @@ Every criterion has an ID for the report table. Apply A–E to unit tests. Apply
 - **D2 ZOMBIES walked.** Zero, one, many, boundaries and exception paths each have a test where they apply.
 - **D3 Mutants killed.** The mutants probed in step 5 of the skill are caught. Every survivor is a finding.
 - **D4 No dead tests.** No commented-out tests. Skipped or pending tests carry a reason, and someone runs them.
+- **D5 Not weakened.** Compared with the base branch, no test file was deleted, no test that stayed lost assertions, no focus marker (`.only`, `fit`) was left in, and no assertion became looser (an exact value turned into a truthiness or "not null" check) without a reason the spec supports. When the project has `scripts/floor-guard.sh`, run it and include its test findings.
 
 ## E. Execution
 
