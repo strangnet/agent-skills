@@ -15,7 +15,7 @@ First you shape, then you slice. Break an approved spec into **tasks**: thin ver
 
 1. **Gather.** Read the spec (and its capability map, if there is one), `GLOSSARY.md`, the relevant ADRs and the code the work touches. Read the source issue too when there is one, with comments. Use glossary terms in every task. Done when you know every scenario in the spec's *Behaviour* and where in the code it lands.
 2. **Look for prefactoring.** Find changes to existing code that would make the feature easy to add without changing behaviour: an extracted seam, a split module, a renamed concept. *Make the change easy, then make the easy change.* Each one becomes a task at the front of the order.
-3. **Draft the slices.** Use the rules below. Give each task the spec scenarios it covers, by name, and the tasks that **block** it. Done when every scenario in the spec belongs to exactly one task.
+3. **Draft the slices.** Use the rules below. Give each task the spec scenarios it covers, by name, the invariants (`INV-n`) it must keep, and the tasks that **block** it. Done when every scenario in the spec belongs to exactly one task, and every invariant and impossible transition to at least one.
 4. **Review with the user.** Show the breakdown as a numbered list: title, what it delivers, scenarios covered, blocked by. Ask whether the granularity is right, whether each blocking link is real, and whether any tasks should merge or split. Iterate until the user approves.
 5. **Save** the approved tasks where the project's way of working says (see *Where tasks live*), in dependency order, blockers first.
 
@@ -48,9 +48,12 @@ Blocked by: <NN titles, or "none">
 
 ## Scenarios
 - <scenario name from the spec's Behaviour section>
+
+## Invariants
+- <INV-n, or impossible transition, from the spec's State model>  (omit if none)
 ```
 
-Name the scenarios rather than copying them. The spec stays the single place that defines them, so a change to the spec can't leave a task out of date.
+Name the scenarios and invariants rather than copying them. The spec stays the single place that defines them, so a change to the spec can't leave a task out of date.
 
 ## Where tasks live
 
