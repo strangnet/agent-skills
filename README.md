@@ -22,7 +22,7 @@ codex plugin marketplace add strangnet/agent-skills
 codex plugin add strangnet-skills@strangnet-skills
 ```
 
-Start a new Codex session afterwards so it discovers the skills. Mention a skill by name to invoke it, or describe the task and let Codex pick one. Codex doesn't load the [agents](#agents), so `doubt` and `code-review` run their reviewer in a fresh subagent instead. If the plugin route doesn't work in your Codex version, use skills.sh with `-a codex`.
+Start a new Codex session afterwards so it discovers the skills. Mention a skill by name to invoke it, or describe the task and let Codex pick one. Codex doesn't load the [agents](#agents), so `doubt` and `code-review` run their reviewer in a fresh subagent instead.
 
 ### GitHub Copilot (CLI and VS Code)
 
@@ -57,17 +57,17 @@ Works with Cursor, OpenCode, Gemini CLI and most other agents that read the Agen
 
 | Skill | Use it to | Reach for it with |
 |---|---|---|
-| [`shape`](skills/engineering/shape/SKILL.md) | Turn a loose idea into a destination with every decision settled: explore options, get grilled, and leave with glossary updates, ADRs and a spec. Work too big for one session becomes a map of decision tickets. Invoke it by name only. | `/shape <idea>` |
-| [`spec`](skills/engineering/spec/SKILL.md) | Write what's been decided as a spec in `docs/specs/`: behaviour scenarios, test seams, decisions, boundaries and out-of-scope, then stop for approval. Changes to shipped features get a delta spec. | "Write this up as a spec", "spec out the change" |
-| [`slice`](skills/engineering/slice/SKILL.md) | Break an approved spec that's too big for one session into vertical-slice tasks, ordered by what blocks what, as task files or tracker issues. | "Slice this spec", "break it into tasks" |
-| [`tdd-cycle`](skills/engineering/tdd-cycle/SKILL.md) | Drive code with tests in a gated red → green → refactor cycle. The agent stops for review after every phase. | "Let's TDD this", "next test", "make it pass" |
-| [`acceptance-testing`](skills/engineering/acceptance-testing/SKILL.md) | Turn scenarios into acceptance tests built in three layers (scenario → DSL → protocol driver) that run against the real system. Gherkin is optional. | "Write acceptance tests for these scenarios", "ATDD" |
-| [`test-review`](skills/engineering/test-review/SKILL.md) | Review tests against a quality checklist and report findings with `file:line` evidence, without editing anything. | "Review the tests before I merge" |
-| [`code-review`](skills/engineering/code-review/SKILL.md) | Review a diff or PR across five axes (correctness, readability, architecture, security, performance) and report severity-ranked findings. It fixes only the findings you approve. | "Review this PR", "review my changes before merge" |
-| [`constraints`](skills/engineering/constraints/SKILL.md) | Set the project's quality bar once: four questions, then `CONSTRAINTS.md` with numbers and the command behind each, wired into the project's scripts, CI and an optional Stop hook. A floor guard catches the cheap roads to green (suppressions, skipped or deleted tests, removed assertions, stubs, loosened thresholds). Invoke it by name only. | `/constraints` |
-| [`doubt`](skills/engineering/doubt/SKILL.md) | Cross-examine a non-trivial decision before it stands: the artifact and its contract, without your reasoning, go to a fresh-context reviewer told to disprove it. `shape` and `spec` run it at their gates. | "Doubt this", "stress-test this plan", before a migration or deploy |
-| [`source-check`](skills/engineering/source-check/SKILL.md) | Write library, framework and tool code from the official docs for the version the project pins, not from memory, and cite them. Anything unverified is marked as such. | "Check the docs", or automatically before version-sensitive code |
-| [`session-handoff`](skills/session/session-handoff/SKILL.md) | Hand a session over before clearing context: a fixed-structure summary of decisions, changes, key files, running processes (with how to stop them), verification commands and open questions, checked against `git` rather than recalled. | "Hand off", "wrap up the session", before `/clear` |
+| [`shape`](skills/shape/SKILL.md) | Turn a loose idea into a destination with every decision settled: explore options, get grilled, and leave with glossary updates, ADRs and a spec. Work too big for one session becomes a map of decision tickets. Invoke it by name only. | `/shape <idea>` |
+| [`spec`](skills/spec/SKILL.md) | Write what's been decided as a spec in `docs/specs/`: behaviour scenarios, test seams, decisions, boundaries and out-of-scope, then stop for approval. Changes to shipped features get a delta spec. | "Write this up as a spec", "spec out the change" |
+| [`slice`](skills/slice/SKILL.md) | Break an approved spec that's too big for one session into vertical-slice tasks, ordered by what blocks what, as task files or tracker issues. | "Slice this spec", "break it into tasks" |
+| [`tdd-cycle`](skills/tdd-cycle/SKILL.md) | Drive code with tests in a gated red → green → refactor cycle. The agent stops for review after every phase. | "Let's TDD this", "next test", "make it pass" |
+| [`acceptance-testing`](skills/acceptance-testing/SKILL.md) | Turn scenarios into acceptance tests built in three layers (scenario → DSL → protocol driver) that run against the real system. Gherkin is optional. | "Write acceptance tests for these scenarios", "ATDD" |
+| [`test-review`](skills/test-review/SKILL.md) | Review tests against a quality checklist and report findings with `file:line` evidence, without editing anything. | "Review the tests before I merge" |
+| [`code-review`](skills/code-review/SKILL.md) | Review a diff or PR across five axes (correctness, readability, architecture, security, performance) and report severity-ranked findings. It fixes only the findings you approve. | "Review this PR", "review my changes before merge" |
+| [`constraints`](skills/constraints/SKILL.md) | Set the project's quality bar once: four questions, then `CONSTRAINTS.md` with numbers and the command behind each, wired into the project's scripts, CI and an optional Stop hook. A floor guard catches the cheap roads to green (suppressions, skipped or deleted tests, removed assertions, stubs, loosened thresholds). Invoke it by name only. | `/constraints` |
+| [`doubt`](skills/doubt/SKILL.md) | Cross-examine a non-trivial decision before it stands: the artifact and its contract, without your reasoning, go to a fresh-context reviewer told to disprove it. `shape` and `spec` run it at their gates. | "Doubt this", "stress-test this plan", before a migration or deploy |
+| [`source-check`](skills/source-check/SKILL.md) | Write library, framework and tool code from the official docs for the version the project pins, not from memory, and cite them. Anything unverified is marked as such. | "Check the docs", or automatically before version-sensitive code |
+| [`session-handoff`](skills/session-handoff/SKILL.md) | Hand a session over before clearing context: a fixed-structure summary of decisions, changes, key files, running processes (with how to stop them), verification commands and open questions, checked against `git` rather than recalled. | "Hand off", "wrap up the session", before `/clear` |
 
 ### Where to start
 
@@ -121,7 +121,7 @@ Each skill detects the project's language from its manifest (`Cargo.toml`, `go.m
 ## Repository layout
 
 ```text
-skills/<category>/<skill>/     SKILL.md plus the skill's own references/
+skills/<skill>/                SKILL.md plus the skill's own references/
 references/<set>/              shared reference sets, vendored into skills (see below)
 scripts/sync-references.sh     copies shared sets into skills; --check detects drift
 scripts/validate-versions.sh   checks that every plugin manifest has the same version
@@ -131,11 +131,10 @@ evals/plugin/                  behavioural evals, run with `claude plugin eval`
 
 ## Adding a skill
 
-1. Create `skills/<category>/<name>/SKILL.md`. Keep the main file short and move detail into `references/`, which the skill reads only when needed.
-2. Skills in an existing category folder load automatically. For a new category, add its folder (for example `"./skills/<category>"`) to the `skills` array in both `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`. pi and skills.sh find it on their own.
-3. To use a shared reference set such as the language files, create an empty `references/languages/` folder in the skill and run `scripts/sync-references.sh`. Edit shared files only under the root `references/`; CI fails if a skill's copy drifts.
-4. Add eval cases under `evals/plugin/` (see its [README](evals/plugin/README.md)).
-5. Check that it loads: `claude plugin validate .` should list the new skill.
+1. Create `skills/<name>/SKILL.md`, directly under `skills/` (no category folders, which some agents don't search). Every install route picks it up without manifest changes. Keep the main file short and move detail into `references/`, which the skill reads only when needed.
+2. To use a shared reference set such as the language files, create an empty `references/languages/` folder in the skill and run `scripts/sync-references.sh`. Edit shared files only under the root `references/`; CI fails if a skill's copy drifts.
+3. Add eval cases under `evals/plugin/` (see its [README](evals/plugin/README.md)).
+4. Check that it loads: `claude plugin validate .` should list the new skill.
 
 ## Releasing
 

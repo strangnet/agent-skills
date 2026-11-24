@@ -1,6 +1,6 @@
 {
   "name": "strangnet-skills",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Skills for AI coding agents.",
   "author": {
     "name": "Patrick Strang",
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/strangnet/agent-skills",
   "repository": "https://github.com/strangnet/agent-skills",
   "license": "MIT",
-  "skills": ["./skills/engineering/", "./skills/session/"],
+  "skills": "./skills/",
   "interface": {
     "displayName": "strangnet skills",
     "shortDescription": "Test-first, small reviewed steps, with the developer as the architect.",

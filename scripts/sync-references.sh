@@ -4,7 +4,7 @@
 #
 # Each folder under references/ (e.g. references/languages/) is a shared set.
 # A skill opts in to a set by having a folder of the same name under its own
-# references/ (e.g. skills/engineering/tdd-cycle/references/languages/).
+# references/ (e.g. skills/tdd-cycle/references/languages/).
 #
 #   scripts/sync-references.sh          copy every shared set into the skills that opt in
 #   scripts/sync-references.sh --check  exit 1 if any skill's copy has drifted (for CI)
@@ -17,7 +17,7 @@ status=0
 for src in "$root"/references/*/; do
   src=${src%/}
   set_name=$(basename "$src")
-  for dest in "$root"/skills/*/*/references/"$set_name"; do
+  for dest in "$root"/skills/*/references/"$set_name"; do
     [ -d "$dest" ] || continue
     rel=${dest#"$root"/}
     if [ "$mode" = "--check" ]; then
