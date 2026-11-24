@@ -26,6 +26,7 @@ The repository also ships a Codex marketplace manifest in `.agents/plugins/marke
 | [`constraints`](skills/engineering/constraints/SKILL.md) | Set the project's quality bar once: four questions, then `CONSTRAINTS.md` with numbers and the command behind each, wired into the project's scripts, CI and an optional Stop hook. A floor guard catches the cheap roads to green (suppressions, skipped or deleted tests, removed assertions, stubs, loosened thresholds). Invoke it by name only. | `/constraints` |
 | [`doubt`](skills/engineering/doubt/SKILL.md) | Cross-examine a non-trivial decision before it stands: the artifact and its contract, without your reasoning, go to a fresh-context reviewer told to disprove it. `shape` and `spec` run it at their gates. | "Doubt this", "stress-test this plan", before a migration or deploy |
 | [`source-check`](skills/engineering/source-check/SKILL.md) | Write library, framework and tool code from the official docs for the version the project pins, not from memory, and cite them. Anything unverified is marked as such. | "Check the docs", or automatically before version-sensitive code |
+| [`session-handoff`](skills/session/session-handoff/SKILL.md) | Hand a session over before clearing context: a fixed-structure summary of decisions, changes, key files, running processes (with how to stop them), verification commands and open questions, checked against `git` rather than recalled. | "Hand off", "wrap up the session", before `/clear` |
 
 ### Where to start
 
