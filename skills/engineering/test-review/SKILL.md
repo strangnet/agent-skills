@@ -7,8 +7,6 @@ description: Read-only review of test code against a quality checklist, reportin
 
 Review tests the way a senior engineer would before merge, against [references/checklist.md](references/checklist.md). The review is **read-only**: you run tests and read code, and every suggested fix goes in the report rather than into the repository.
 
-> Inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl.
-
 ## Steps
 
 1. **Scope.** Use the paths the user named. Otherwise take the test files changed on this branch: `git diff --name-only $(git merge-base HEAD main)` filtered to test files. If neither gives anything, ask. For each test file, find the production code it exercises, and any spec or roadmap the tests are meant to cover. Done when you have a list of (test file, production file, spec if any).

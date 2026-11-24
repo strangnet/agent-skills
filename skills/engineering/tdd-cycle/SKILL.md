@@ -7,8 +7,6 @@ description: Test-driven development as a gated red-green-refactor cycle that st
 
 The developer stays the architect; you are the pair who types. Every phase ends at a **gate** where the developer reviews before anything moves on.
 
-> Inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl.
-
 ## Unit tests and acceptance tests
 
 The two kinds of test answer different questions:
