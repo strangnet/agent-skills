@@ -19,12 +19,20 @@ The repository also ships a Codex marketplace manifest in `.agents/plugins/marke
 | [`tdd-cycle`](skills/engineering/tdd-cycle/SKILL.md) | Drive code with tests in a gated red → green → refactor cycle. The agent stops for review after every phase. | "Let's TDD this", "next test", "make it pass" |
 | [`acceptance-testing`](skills/engineering/acceptance-testing/SKILL.md) | Turn scenarios into acceptance tests built in three layers (scenario → DSL → protocol driver) that run against the real system. Gherkin is optional. | "Write acceptance tests for these scenarios", "ATDD" |
 | [`test-review`](skills/engineering/test-review/SKILL.md) | Review tests against a quality checklist and report findings with `file:line` evidence, without editing anything. | "Review the tests before I merge" |
+| [`code-review`](skills/engineering/code-review/SKILL.md) | Review a diff or PR across five axes (correctness, readability, architecture, security, performance) and report severity-ranked findings. It fixes only the findings you approve. | "Review this PR", "review my changes before merge" |
 
-They fit together as two loops and a check:
+They fit together as two loops and two checks:
 
 1. `acceptance-testing` writes the outer test. Run test-first, it fails because the behaviour is missing.
 2. `tdd-cycle` drives the implementation in small unit-tested steps until the acceptance test passes.
 3. `test-review` checks both kinds of test before merge.
+4. `code-review` checks the whole change before merge.
+
+## Agents
+
+| Agent | Use it to |
+|---|---|
+| [`code-reviewer`](agents/code-reviewer.md) | Run the `code-review` skill as an independent subagent, in parallel with other work or apart from the session that wrote the code. Approve fixes in its brief, or by resuming it with the finding IDs after reading its report. |
 
 Each skill detects the project's language from its manifest (`Cargo.toml`, `go.mod`, `pyproject.toml`, `package.json`) and loads only that language's reference file. Other languages work too, using the same rules and that ecosystem's idioms.
 
@@ -57,6 +65,8 @@ Claude Code and Codex use the plugin version to decide whether an installed copy
 ## Credits
 
 The workflow skills are inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl. They also build on long-standing practice: Robert C. Martin's three laws of TDD, James Grenning's ZOMBIES test ordering, and Dave Farley's layered acceptance test model.
+
+The `code-review` skill and `code-reviewer` agent are inspired by Addy Osmani's [agent-skills](https://github.com/addyosmani/agent-skills).
 
 ## License
 
