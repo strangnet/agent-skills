@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "strangnet-skills",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "source": {
         "source": "github",
         "repo": "strangnet/agent-skills"
@@ -17,7 +17,15 @@
       "description": "Skills for AI coding agent.",
       "homepage": "https://github.com/strangnet/agent-skills",
       "license": "MIT",
-      "keywords": ["skills", "agents", "engineering", "spec", "tdd", "review", "ship"]
+      "keywords": [
+        "skills",
+        "agents",
+        "engineering",
+        "spec",
+        "tdd",
+        "review",
+        "ship"
+      ]
     }
   ]
 }
