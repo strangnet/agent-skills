@@ -45,7 +45,7 @@ Changes: [<original spec>](<slug>.md)
 <what happens today; link the relevant section of the original spec>
 
 ## New behaviour
-<scenarios for what will be true afterwards, including what must not change>
+<scenarios for what will be true afterwards, including what must not change; any invariants or contracts added or changed, keeping their INV numbers>
 
 ## Decisions, Testing, Boundaries
 <only what differs from the original; everything else is inherited>

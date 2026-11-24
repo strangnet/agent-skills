@@ -2,7 +2,7 @@
 
 A roadmap is the ordered list of scenarios for one piece of work, together with the test strategy that fits its **work type**. Write it before any test exists, and get the user's approval on it.
 
-**From an approved spec,** take the work type and seams from its *Testing* section and the scenarios from its *Behaviour* section, so the user reviews a draft rather than a blank page. When working a task from `slice`, take only the scenarios that task names. Reclassify only if the code contradicts the spec, and then say so: the spec may need updating first.
+**From an approved spec,** take the work type and seams from its *Testing* section and the scenarios from its *Behaviour* section, so the user reviews a draft rather than a blank page. If the spec has a *State model* or *Contracts*, each invariant, impossible transition and failure postcondition becomes a scenario too, named in business terms ("a draft can't be published without review"). When working a task from `slice`, take only the scenarios and invariants that task names. Reclassify only if the code contradicts the spec, and then say so: the spec may need updating first.
 
 ## 1. Classify the work type
 
