@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 # Checks that every plugin manifest declares the same version.
 #
-# .claude-plugin/plugin.json is the source of truth. The root plugin.json
-# (vendor-neutral agent-plugins.org manifest) and the marketplace entries for
-# Claude Code and Codex must match it, because clients compare versions to
-# decide whether an installed copy needs updating.
+# .claude-plugin/plugin.json is the source of truth (Claude Code and Copilot
+# read it). The Codex manifest in .codex-plugin/plugin.json and the
+# marketplace entries for Claude Code and Codex must match it, because clients
+# compare versions to decide whether an installed copy needs updating.
+#
+# There is deliberately no root plugin.json: an agent-plugins.org manifest
+# there takes precedence in Copilot and Codex and only finds skills in direct
+# subfolders of skills/.
 #
 #   scripts/validate-versions.sh   exit 1 if any manifest's version differs (for CI)
 set -euo pipefail
@@ -12,7 +16,7 @@ set -euo pipefail
 root=$(cd "$(dirname "$0")/.." && pwd)
 source_manifest=.claude-plugin/plugin.json
 plugin_manifests=(
-  plugin.json
+  .codex-plugin/plugin.json
 )
 marketplaces=(
   .claude-plugin/marketplace.json

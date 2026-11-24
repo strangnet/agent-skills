@@ -4,13 +4,54 @@ Skills that make AI coding agents work the way a disciplined engineer does: test
 
 ## Install
 
-Claude Code (2.1.275 or later):
+There are two kinds of install. A **plugin** is a read-only bundle that updates when a new version is released. **[skills.sh](https://skills.sh)** (`npx skills`) copies the skill folders into your project or home directory, where you can edit them, and you update them yourself. Pick one per agent: installing both gives you every skill twice.
 
-```text
-/plugin install strangnet-skills --marketplace strangnet/agent-skills
+### Claude Code
+
+```bash
+claude plugin marketplace add strangnet/agent-skills
+claude plugin install strangnet-skills@strangnet
 ```
 
-The repository also ships a Codex marketplace manifest in `.agents/plugins/marketplace.json`.
+Or from inside a session: `/plugin marketplace add strangnet/agent-skills`, then `/plugin install strangnet-skills@strangnet`. This installs the skills and the [agents](#agents). Run `claude plugin marketplace update strangnet` to pick up new releases.
+
+### Codex
+
+```bash
+codex plugin marketplace add strangnet/agent-skills
+codex plugin add strangnet-skills@strangnet-skills
+```
+
+Start a new Codex session afterwards so it discovers the skills. Mention a skill by name to invoke it, or describe the task and let Codex pick one. Codex doesn't load the [agents](#agents), so `doubt` and `code-review` run their reviewer in a fresh subagent instead. If the plugin route doesn't work in your Codex version, use skills.sh with `-a codex`.
+
+### GitHub Copilot (CLI and VS Code)
+
+```bash
+copilot plugin marketplace add strangnet/agent-skills
+copilot plugin install strangnet-skills@strangnet
+```
+
+Run `copilot plugin update strangnet-skills` to pull new releases. In VS Code, enable the `chat.plugins.enabled` setting, run **Chat: Install Plugin From Source** and enter `https://github.com/strangnet/agent-skills`. VS Code also picks up plugins installed with the CLI. Copilot doesn't load the [agents](#agents), so `doubt` and `code-review` run their reviewer in a fresh subagent instead.
+
+### pi
+
+```bash
+pi install git:github.com/strangnet/agent-skills        # every project
+pi install git:github.com/strangnet/agent-skills -l     # this project only, shareable via .pi/settings.json
+```
+
+pi finds every `SKILL.md` under `skills/` and registers each as a `/skill:<name>` command. `shape` and `constraints` are hidden from the model, so start them with `/skill:shape` and `/skill:constraints`. Run `pi update --extensions` to pull new releases (a ref pinned with `@<tag>` stays put). pi has no subagents, so `doubt` and `code-review` tell you when the independent review didn't run.
+
+### Any other agent (skills.sh)
+
+```bash
+npx skills@latest add strangnet/agent-skills                    # choose skills and agents interactively
+npx skills@latest add strangnet/agent-skills -a codex pi        # preselect agents
+npx skills@latest add strangnet/agent-skills --skill tdd-cycle  # one skill
+npx skills@latest add strangnet/agent-skills --list             # list skills without installing
+```
+
+Works with Cursor, OpenCode, Gemini CLI and most other agents that read the Agent Skills format. Add `-g` to install into your home directory instead of the project. The agents in `agents/` are Claude Code only and aren't installed this way. To update, run `npx skills@latest update`, and re-run `add` to pick up skills added since.
 
 ## Skills
 
@@ -91,17 +132,17 @@ evals/plugin/                  behavioural evals, run with `claude plugin eval`
 ## Adding a skill
 
 1. Create `skills/<category>/<name>/SKILL.md`. Keep the main file short and move detail into `references/`, which the skill reads only when needed.
-2. Skills in an existing category folder load automatically. For a new category, add its folder (for example `"./skills/<category>"`) to the `skills` array in `.claude-plugin/plugin.json`.
+2. Skills in an existing category folder load automatically. For a new category, add its folder (for example `"./skills/<category>"`) to the `skills` array in both `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`. pi and skills.sh find it on their own.
 3. To use a shared reference set such as the language files, create an empty `references/languages/` folder in the skill and run `scripts/sync-references.sh`. Edit shared files only under the root `references/`; CI fails if a skill's copy drifts.
 4. Add eval cases under `evals/plugin/` (see its [README](evals/plugin/README.md)).
 5. Check that it loads: `claude plugin validate .` should list the new skill.
 
 ## Releasing
 
-Claude Code and Codex use the plugin version to decide whether an installed copy needs updating. If a change ships without a version bump, users may not receive it.
+Claude Code, Codex and Copilot use the plugin version to decide whether an installed copy needs updating. If a change ships without a version bump, users may not receive it.
 
 1. Pick the new version using semver: patch for fixes and wording changes, minor for new skills or behaviour, major for removed or renamed skills.
-2. Set it in all four manifests: `.claude-plugin/plugin.json` (the source of truth), the root `plugin.json`, `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. CI fails if they differ; run `scripts/validate-versions.sh` to check locally.
+2. Set it in all four manifests: `.claude-plugin/plugin.json` (the source of truth), `.codex-plugin/plugin.json`, `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. CI fails if they differ; run `scripts/validate-versions.sh` to check locally.
 3. Commit as `chore(release): bump plugin manifests to X.Y.Z`, merge it, then tag that commit and publish a GitHub release whose notes list the changes: `gh release create X.Y.Z --target main --generate-notes`.
 
 ## Credits
