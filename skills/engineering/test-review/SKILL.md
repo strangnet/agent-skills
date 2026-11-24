@@ -9,7 +9,7 @@ Review tests the way a senior engineer would before merge, against [references/c
 
 ## Steps
 
-1. **Scope.** Use the paths the user named. Otherwise take the test files changed on this branch: `git diff --name-only $(git merge-base HEAD main)` filtered to test files. If neither gives anything, ask. For each test file, find the production code it exercises, and any spec or roadmap the tests are meant to cover. Done when you have a list of (test file, production file, spec if any).
+1. **Scope.** Use the paths the user named. Otherwise take the test files changed on this branch: `git diff --name-only $(git merge-base HEAD main)` filtered to test files. If neither gives anything, ask. For each test file, find the production code it exercises, and any spec (look in `docs/specs/`) or roadmap the tests are meant to cover. Done when you have a list of (test file, production file, spec if any).
 2. **Language.** Detect the language from the project manifest and read its file in `references/languages/` (`rust.md`, `go.md`, `python.md`, `typescript.md`). For other languages, say there is no reference file and apply the checklist using that ecosystem's idioms.
 3. **Run.** Run the in-scope tests with the project's runner. Record pass/fail/skip counts and note any test that takes longer than ~100 ms in a unit suite. A red or uncompilable suite is a finding in itself. Report it first and continue the review.
 4. **Apply the checklist.** Read [references/checklist.md](references/checklist.md) and apply every criterion to every file in scope. Also check the language file's *Review smells*. Each criterion gets a verdict per file: **pass**, **fail** (with `file:line` evidence) or **n/a** (with a reason). Done when no criterion is left unjudged for any file.

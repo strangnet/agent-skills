@@ -1,6 +1,6 @@
 ---
 name: shape
-description: Shape a loose idea, plan or design into a clear destination with every decision settled, through divergent exploration, relentless grilling and a written brief. Sharpens the project's glossary and records ADRs as decisions land. Work too big for one session becomes a map of decision tickets resolved one per session.
+description: Shape a loose idea, plan or design into a clear destination with every decision settled, through divergent exploration and relentless grilling, ending in a spec. Sharpens the project's glossary and records ADRs as decisions land. Work too big for one session becomes a map of decision tickets resolved one per session.
 disable-model-invocation: true
 ---
 
@@ -14,12 +14,15 @@ Turn a loose idea into a **destination** with nothing left to decide before some
 
 ## Steps
 
-1. **Destination.** Restate the idea as one sentence: *how might we <outcome> for <who> without <constraint>?* Settle who it is for, what success looks like, and what the result should be (a feature, a decision, a migration). If the user is anchored on a solution, pull back to the problem first. Done when the user agrees with the destination: it fixes the scope for everything after it.
-2. **Diverge** (only when the solution is still open). Offer 3–5 genuinely different approaches, each with a one-line reason it exists, grounded in what the codebase already has. Pick angles from [references/lenses.md](references/lenses.md). Ask which resonate, then carry those forward. Skip this step when the user has already chosen the approach.
+1. **Destination.** Start from what the user gave: an idea, or an issue (read it with comments, using the tracker's CLI such as `gh issue view`). Restate it as one sentence: *how might we <outcome> for <who> without <constraint>?* Settle who it is for, what success looks like, and what the result should be (a feature, a decision, a migration). If the user is anchored on a solution, pull back to the problem first. Done when the user agrees with the destination: it fixes the scope for everything after it.
+2. **Diverge** (only when the solution is still open). Offer 3–5 genuinely different approaches, each with a one-line reason it exists, grounded in what the codebase already has. In a new project with no code yet, ground them in the constraints and the tools the user wants instead. Pick angles from [references/lenses.md](references/lenses.md). Ask which resonate, then carry those forward. Skip this step when the user has already chosen the approach.
 3. **Grill.** Build a **decision tree**: each decision branches into the decisions that hang off it. Work it in rounds (format below). Each round asks every question whose prerequisites are settled, and nothing that depends on an answer you haven't heard yet. After each round, recompute what can be asked next. While grilling, sharpen the language (see *Domain language*). Done when every branch is visited and nothing is silently assumed.
 4. **Stress-test.** Sort the assumptions the plan rests on into **must be true** (wrong means the plan dies), **should be true** (wrong means rework) and **might be true** (ignore for now). Give each must-be-true assumption a way to test it. Run a quick pre-mortem: it shipped and failed, so why? If the direction is weak, say so plainly and propose the stronger one.
-5. **Size check.** If building to the destination fits in one agent session, go to step 6. If the open decisions or the build itself won't fit, chart a map instead: read [references/map.md](references/map.md).
-6. **Write the brief** (format below), show it, and ask before saving it to `docs/briefs/<slug>.md`. Done when the user confirms there is nothing left to decide.
+5. **Size check.** Decide what the destination holds:
+   - **One feature, with its decisions settled:** go to step 6. A feature too big to build in one session is fine here, because `slice` breaks it down after the spec.
+   - **Several features:** capabilities that could each ship and be tested on their own (separate users, separate data, scenarios that cluster). Grill the split as part of the decision tree: the features, the boundaries between them, which depends on which, and the build order. Then go to step 6, where `spec` writes the capability map and the first feature's spec.
+   - **Too many open decisions to see the features yet:** chart a decision map, which carries the work across sessions: read [references/map.md](references/map.md). When the map is done it usually ends in one of the outcomes above.
+6. **Confirm and hand off.** Summarise the destination, the decisions, the assumptions, the **first slice** (the smallest version that tests the riskiest assumption; in a new project, a walking skeleton that runs end to end) and what you're **not doing**, with a reason for each item on that last list. Not doing is the most valuable part: focus means saying no to good ideas, so make each trade-off explicit. When the user confirms there is nothing left to decide, run the `spec` skill to write it all down. Shaping ends there.
 
 ## Grilling rounds
 
@@ -44,37 +47,3 @@ Keep the project's vocabulary precise while you grill:
 - **Check the code.** When the user says how something works and the code disagrees, show the contradiction and ask which is right.
 - **Write as you go.** When a term is settled, update `GLOSSARY.md` at once. When a decision is hard to reverse, surprising without context, *and* the result of a real trade-off, offer an ADR. Both formats are in [references/glossary-and-adr.md](references/glossary-and-adr.md). Create files lazily, only when there is something to write.
 
-## Brief format
-
-```markdown
-# <Name>
-
-## Destination
-<the how-might-we sentence, who it is for, what success looks like>
-
-## Decisions
-- <decision>: <why> (ADR-NNNN when there is one)
-
-## Scenarios
-<!-- concrete behaviour in domain language; these seed acceptance-testing and the tdd-cycle roadmap -->
-- <given / when / then, or one plain sentence>
-
-## Assumptions
-- [ ] **Must:** <assumption> → <how to test it>
-- [ ] **Should:** <assumption>
-
-## Scope
-<the smallest version that tests the riskiest assumption>
-
-## Not doing
-- <thing>: <why>
-
-## Open questions
-<!-- empty when shaping is done; anything here blocks handoff -->
-```
-
-**Not doing** is the most valuable section. Focus means saying no to good ideas, so make each trade-off explicit.
-
-## Handoff
-
-The brief's scenarios are the input to the next skills: `acceptance-testing` for the outer tests, then `tdd-cycle` to build. Offer that next step, and don't start it until the user says so.

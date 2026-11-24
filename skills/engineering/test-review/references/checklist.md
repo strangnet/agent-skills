@@ -27,7 +27,7 @@ Every criterion has an ID for the report table. Apply A–E to unit tests. Apply
 
 ## D. Coverage and strength
 
-- **D1 Spec covered.** Every scenario in the spec or roadmap (when one exists) maps to at least one test.
+- **D1 Spec covered.** Every scenario in the spec's *Behaviour* section or the roadmap (when one exists) maps to at least one test.
 - **D2 ZOMBIES walked.** Zero, one, many, boundaries and exception paths each have a test where they apply.
 - **D3 Mutants killed.** The mutants probed in step 5 of the skill are caught. Every survivor is a finding.
 - **D4 No dead tests.** No commented-out tests. Skipped or pending tests carry a reason, and someone runs them.

@@ -7,6 +7,7 @@ Apply every axis to every changed file. A criterion that doesn't fit the change 
 Does the code do what it claims?
 
 - Matches the spec or task, including the parts it's silent about.
+- When there's a spec, the change stays inside it. Behaviour the spec doesn't describe is a finding, and so is a decision that changed in code but not in the spec. The fix for either is to update the spec or the code, not to leave them out of step.
 - Edge cases handled: empty, null, zero, one, many, boundaries.
 - Error paths handled, not just the happy path. No silent fallbacks that hide a broken invariant.
 - No off-by-one errors, races or inconsistent state.

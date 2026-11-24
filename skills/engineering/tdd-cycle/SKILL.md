@@ -1,6 +1,6 @@
 ---
 name: tdd-cycle
-description: Test-driven development as a gated red-green-refactor cycle that stops for developer review after every phase. Use when the user asks to work test-first or says "TDD", "red/green/refactor", "test list", "next test" or "make it pass", or when a cycle is already in progress. Not for planning-only discussions or for changes the user has not asked to drive with tests. Feature-level tests against the running system belong to acceptance-testing.
+description: Test-driven development as a gated red-green-refactor cycle that stops for developer review after every phase. Use when the user asks to work test-first or says "TDD", "red/green/refactor", "test list", "next test" or "make it pass", or when a cycle is already in progress. Also use to fix a reported bug, which starts by reproducing it as a failing test. Not for planning-only discussions or for changes the user has not asked to drive with tests. Feature-level tests against the running system belong to acceptance-testing.
 ---
 
 # TDD Cycle
@@ -20,7 +20,9 @@ This skill is the inner loop. When the user wants to confirm a feature works end
 
 Stages 1–2 are ordinary collaboration. Strict cycle rules apply from stage 3 onward.
 
-1. **Context.** Read the spec, the relevant code and any existing tests. Done when you can state the behaviour to build in one sentence and the user agrees with it.
+1. **Context.** Read the spec (in `docs/specs/` when the `spec` skill wrote one) and, when working a task from `slice`, that task. Then read the relevant code and any existing tests. Done when you can state the behaviour to build in one sentence and the user agrees with it.
+
+   **Bug fix:** state the defect as *expected* versus *actual*, from the issue or report, and reproduce it (run it, or read the logs or failing output) before touching code. Skip stage 2. The test list starts with one test that pins the expected behaviour, and in red it must fail for the reported reason, not some other one. If the cause turns out to be a design problem rather than a slip, stop and suggest `/shape` instead of patching around it.
 2. **Roadmap** (optional, when the user wants a plan). Read [references/roadmap.md](references/roadmap.md), classify the work type and draft the roadmap. Done when the user approves the ordered scenario list. Production code waits until stage 4.
 3. **Test list.**
    1. **Load the language reference first.** Detect the language from the manifest (see [Language](#language)) and open its reference file before writing or planning any test. Take the test runner command, pending-test marker and test layout from that file, not from memory.

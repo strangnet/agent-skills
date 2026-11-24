@@ -30,9 +30,9 @@ Isolated tests run in parallel and can be re-run against the same environment.
 
 ## Stages
 
-1. **Context.** Gather the scenarios (ask for them if they are missing), the architecture, and how the system is reached. Done when you can list the scenarios and the protocol(s) the driver will speak.
+1. **Context.** Gather the scenarios, the architecture, and how the system is reached. An approved spec in `docs/specs/` supplies the scenarios (its *Behaviour* section) and the seams the driver will use (its *Testing* section). Without a spec, ask for the scenarios. Done when you can list the scenarios and the protocol(s) the driver will speak.
 2. **Strategy.** Read [references/strategy.md](references/strategy.md) and draft the strategy: domain concepts mapped to DSL areas, driver choice, isolation keys, stubs. Done when the user approves it.
-3. **Infrastructure check.** Confirm the alias helper, DSL root, driver interface, driver factory and (if Gherkin is used) step-definition wiring exist. If any are missing, read [references/infrastructure.md](references/infrastructure.md) and ask the user whether to create them or point you at existing ones. Create nothing until they answer. Done when every piece exists.
+3. **Infrastructure check.** Confirm the alias helper, DSL root, driver interface, driver factory and (if Gherkin is used) step-definition wiring exist. If any are missing, read [references/infrastructure.md](references/infrastructure.md) and ask the user whether to create them or point you at existing ones. Create nothing until they answer. In a new project, building these pieces is part of the walking skeleton, the spec's first slice. Done when every piece exists.
 4. **Three-phase cycle.** Detect the language (see [Language](#language)) and read both of its reference files. Read [references/phases.md](references/phases.md), then run phase 1 → 2 → 3 for one scenario at a time, with a gate after each phase. Done when every scenario in the strategy runs end to end.
 
 ## Gates

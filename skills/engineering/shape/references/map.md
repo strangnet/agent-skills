@@ -1,6 +1,6 @@
 # Maps
 
-Use a map when reaching the destination needs more decisions than one session can hold. The map is a folder of markdown files that every later session reads to pick up where the last one stopped:
+Use a map when reaching the destination needs more decisions than one session can hold. A map holds **decision** tickets ("which payment provider?"). It never holds build tasks ("customers can pay by card"): those come from the `slice` skill, after a spec is approved. The map is a folder of markdown files that every later session reads to pick up where the last one stopped:
 
 ```text
 docs/maps/<slug>/
@@ -17,7 +17,7 @@ The map is an **index, not a store**. Each decision lives in exactly one place, 
 # <Name>
 
 ## Destination
-<one or two lines: the brief, decision or change this map is finding its way to>
+<one or two lines: the spec, decision or change this map is finding its way to>
 
 ## Notes
 <domain, standing preferences, skills every session should use>
@@ -90,4 +90,4 @@ Fog only gathers toward the destination. Work beyond the destination is **out of
 
 Resolve **one ticket per session**. Research tickets are the exception.
 
-The map is done when no open tickets and no fog remain. Then write the brief (step 6 of the skill) from *Decisions so far*.
+The map is done when no open tickets and no fog remain. Then run the `spec` skill, which writes the spec from *Decisions so far* and the tickets it links to. When the decisions split the work into several features, it writes the capability map first.
