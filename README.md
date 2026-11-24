@@ -23,6 +23,9 @@ The repository also ships a Codex marketplace manifest in `.agents/plugins/marke
 | [`acceptance-testing`](skills/engineering/acceptance-testing/SKILL.md) | Turn scenarios into acceptance tests built in three layers (scenario → DSL → protocol driver) that run against the real system. Gherkin is optional. | "Write acceptance tests for these scenarios", "ATDD" |
 | [`test-review`](skills/engineering/test-review/SKILL.md) | Review tests against a quality checklist and report findings with `file:line` evidence, without editing anything. | "Review the tests before I merge" |
 | [`code-review`](skills/engineering/code-review/SKILL.md) | Review a diff or PR across five axes (correctness, readability, architecture, security, performance) and report severity-ranked findings. It fixes only the findings you approve. | "Review this PR", "review my changes before merge" |
+| [`constraints`](skills/engineering/constraints/SKILL.md) | Set the project's quality bar once: four questions, then `CONSTRAINTS.md` with numbers and the command behind each, wired into the project's scripts, CI and an optional Stop hook. A floor guard catches the cheap roads to green (suppressions, skipped or deleted tests, removed assertions, stubs, loosened thresholds). Invoke it by name only. | `/constraints` |
+| [`doubt`](skills/engineering/doubt/SKILL.md) | Cross-examine a non-trivial decision before it stands: the artifact and its contract, without your reasoning, go to a fresh-context reviewer told to disprove it. `shape` and `spec` run it at their gates. | "Doubt this", "stress-test this plan", before a migration or deploy |
+| [`source-check`](skills/engineering/source-check/SKILL.md) | Write library, framework and tool code from the official docs for the version the project pins, not from memory, and cite them. Anything unverified is marked as such. | "Check the docs", or automatically before version-sensitive code |
 
 ### Where to start
 
@@ -33,6 +36,7 @@ The repository also ships a Codex marketplace manifest in `.agents/plugins/marke
 | **Issue** that settles the decisions | `spec #123` → build |
 | **Issue** that only names the problem | `/shape #123` → `spec` → build |
 | **Small fix** | `tdd-cycle`: reproduce the bug as a failing test, make it pass, refactor |
+| **Any project**, once | `/constraints` to write the bar down; every build and review after that holds it |
 
 First you shape, then you slice: any spec too big to build in one session goes through `slice` before it's built, whichever path it came from.
 
@@ -49,6 +53,18 @@ Whether a project uses layered acceptance tests is the project's choice, not the
 - Tasks: GitHub issues, as sub-issues of the source issue.
 ```
 
+Three more lines tune the cross-cutting skills:
+
+```markdown
+- Sources: check the official docs for the pinned version before writing library code, and cite them.
+- Doubt: gates (default) | always | off. Cross-model: offer | off (default).
+- Constraints: read `CONSTRAINTS.md` before writing code and run `check:task` before calling work done. Never weaken it to make a change pass.
+```
+
+- **Sources** makes `source-check` a standing habit rather than something the agent has to remember to load. That moment ("I'm writing this from memory") is exactly when it wouldn't think to.
+- **Doubt** sets how often `doubt` runs. `gates` means at the checkpoints the skills name (before an ADR in `shape`, before approval in `spec`, claims no test can show in `tdd-cycle`) and before anything irreversible. `always` adds every non-trivial decision. `off` means only when asked. `Cross-model: offer` makes `doubt` offer a second opinion from another model's CLI each round.
+- **Constraints** is written by `/constraints`, which also installs the floor guard. It's the only one of the three that is enforced mechanically, not by instruction.
+
 Without the acceptance-test line, `spec` hands off straight to `tdd-cycle`, and the spec's scenarios become the unit-test roadmap. Without the tasks line, `slice` writes task files under `docs/specs/<slug>/tasks/`.
 
 ## Agents
@@ -56,6 +72,7 @@ Without the acceptance-test line, `spec` hands off straight to `tdd-cycle`, and 
 | Agent | Use it to |
 |---|---|
 | [`code-reviewer`](agents/code-reviewer.md) | Run the `code-review` skill as an independent subagent, in parallel with other work or apart from the session that wrote the code. Approve fixes in its brief, or by resuming it with the finding IDs after reading its report. |
+| [`doubter`](agents/doubter.md) | The fresh-context reviewer behind `doubt`: given an artifact and its contract, never the author's reasoning, it returns only the ways the artifact fails, each with a concrete failure scenario. |
 
 Each skill detects the project's language from its manifest (`Cargo.toml`, `go.mod`, `pyproject.toml`, `package.json`) and loads only that language's reference file. Other languages work too, using the same rules and that ecosystem's idioms.
 
@@ -66,6 +83,7 @@ skills/<category>/<skill>/     SKILL.md plus the skill's own references/
 references/<set>/              shared reference sets, vendored into skills (see below)
 scripts/sync-references.sh     copies shared sets into skills; --check detects drift
 scripts/validate-versions.sh   checks that every plugin manifest has the same version
+scripts/test-floor-guard.sh    tests the constraints skill's floor guard
 evals/plugin/                  behavioural evals, run with `claude plugin eval`
 ```
 
@@ -89,7 +107,7 @@ Claude Code and Codex use the plugin version to decide whether an installed copy
 
 The workflow skills are inspired by [Augmented AI Development (AAID)](https://github.com/dawid-dahl-umain/augmented-ai-development) by Dawid Dahl. They also build on long-standing practice: Robert C. Martin's three laws of TDD, James Grenning's ZOMBIES test ordering, and Dave Farley's layered acceptance test model.
 
-The `code-review` skill and `code-reviewer` agent are inspired by Addy Osmani's [agent-skills](https://github.com/addyosmani/agent-skills). The `spec` skill merges Addy Osmani's `spec-driven-development` with Matt Pocock's `to-spec`, and `slice` merges Addy's `planning-and-task-breakdown` with Matt's `to-tickets`. The `shape` skill merges ideas from Addy Osmani's `idea-refine` with Matt Pocock's `grilling`, `domain-modeling` and `wayfinder` from [mattpocock/skills](https://github.com/mattpocock/skills).
+The `code-review` skill and `code-reviewer` agent are inspired by Addy Osmani's [agent-skills](https://github.com/addyosmani/agent-skills). The `spec` skill merges Addy Osmani's `spec-driven-development` with Matt Pocock's `to-spec`, and `slice` merges Addy's `planning-and-task-breakdown` with Matt's `to-tickets`. The `constraints`, `doubt` and `source-check` skills distil Addy Osmani's `constraint-driven-development`, `doubt-driven-development` and `source-driven-development`; the floor guard is a bash port of his reference implementation. The `shape` skill merges ideas from Addy Osmani's `idea-refine` with Matt Pocock's `grilling`, `domain-modeling` and `wayfinder` from [mattpocock/skills](https://github.com/mattpocock/skills).
 
 ## License
 

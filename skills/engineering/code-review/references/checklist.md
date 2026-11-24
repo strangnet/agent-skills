@@ -12,6 +12,8 @@ Does the code do what it claims?
 - Error paths handled, not just the happy path. No silent fallbacks that hide a broken invariant.
 - No off-by-one errors, races or inconsistent state.
 - Tests exercise the new behaviour and would fail if it broke. A bug fix comes with a regression test.
+- Library, framework and tool APIs match the version the project pins. A deprecated API, or a signature from another version, is a finding; cite the official docs for the fix.
+- **The bar holds.** The change doesn't get to green by lowering it: no new suppression of a checker, no skipped, focused or deleted tests, no assertions removed from tests that stay, no stubs or empty `catch`/`except`, and no loosened number in `CONSTRAINTS.md`. Each needs either a fix or an exception the user agreed to (a row in `CONSTRAINTS.md`'s *Exceptions*).
 
 ## 2. Readability and simplicity
 
@@ -82,3 +84,4 @@ Report these as Required unless the change leaves the structure no worse than be
 - Feature logic added to a shared module.
 - A near-duplicate of an existing canonical helper.
 - A silent fallback that hides an unclear invariant.
+- A move that lowers the bar (see *The bar holds* under Correctness) with no agreed exception.

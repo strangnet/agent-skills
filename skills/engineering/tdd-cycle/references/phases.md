@@ -33,7 +33,7 @@ The red, green and refactor phases of [the TDD cycle](../SKILL.md). Each phase e
 
 **Done when:** every test passes, and no production line exists that some test did not demand.
 
-**Surprise:** if any test fails, stop and report which tests fail and why. Make the production code pass the test as written; changing the test to fit the code is the developer's call.
+**Surprise:** if any test fails, stop and report which tests fail and why. Make the production code pass the test as written; changing the test to fit the code is the developer's call. So is silencing a checker or skipping a test to get green: never do either on your own.
 
 ## Refactor: improve the design
 
