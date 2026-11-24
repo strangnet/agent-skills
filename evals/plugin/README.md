@@ -28,6 +28,7 @@ claude plugin eval . --scaffold --allow-tools Bash Write Edit --no-publish
 | `code-review-flags-weakened-bar` | Flags a skipped test, assertions removed from a test that stays, and a `//nolint` suppression as blocking, and names the boundary defect the skip hides. Edits nothing. |
 | `doubt-finds-race` | Doubting a "safe for concurrent use" claim finds the check-then-act race in a rate limiter, with a concrete interleaving, and classifies it as real. |
 | `acceptance-testing-phase1-stops` | Phase 1 writes only the scenario test with business-language DSL calls, leaves the DSL and driver alone, and stops before phase 2. |
+| `session-handoff-structure` | After a small change, the handoff uses every template section in order, gives absolute paths, reports the change from a `git` check, writes "none" for empty sections, and stays in chat. |
 
 ## Sandbox notes
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "strangnet-skills",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Skills for AI coding agents.",
   "author": { "name": "Patrick Strang", "url": "https://github.com/strangnet" },
   "homepage": "https://github.com/strangnet/agent-skills",
