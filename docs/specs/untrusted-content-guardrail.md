@@ -1,6 +1,6 @@
 # Spec: Untrusted content guardrail, V1
 
-Status: approved
+Status: implemented
 Source: conversation (shape session, Q1–Q21), prompted by the skills.sh Snyk audit of `tdd-cycle`, finding W011 "Third-party content exposure detected (indirect prompt injection risk)", score 0.10, audited 24 Nov 2026
 
 ## Problem
