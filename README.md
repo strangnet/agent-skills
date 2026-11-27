@@ -113,7 +113,7 @@ Without the acceptance-test line, `spec` hands off straight to `tdd-cycle`, and 
 
 | Agent | Use it to |
 |---|---|
-| [`code-reviewer`](agents/code-reviewer.md) | Run the `code-review` skill as an independent subagent, in parallel with other work or apart from the session that wrote the code. Approve fixes in its brief, or by resuming it with the finding IDs after reading its report. |
+| [`code-reviewer`](agents/code-reviewer.md) | Run the `code-review` skill as an independent subagent, in parallel with other work or apart from the session that wrote the code. Approve fixes in its brief, saying the approval is the user's, or by resuming it with the finding IDs after reading its report. |
 | [`doubter`](agents/doubter.md) | The fresh-context reviewer behind `doubt`: given an artifact and its contract, never the author's reasoning, it returns only the ways the artifact fails, each with a concrete failure scenario. |
 
 Each skill detects the project's language from its manifest (`Cargo.toml`, `go.mod`, `pyproject.toml`, `package.json`) and loads only that language's reference file. Other languages work too, using the same rules and that ecosystem's idioms.
