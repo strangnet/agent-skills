@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "strangnet-skills",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "description": "Skills for AI coding agents.",
       "source": {
         "source": "local",
